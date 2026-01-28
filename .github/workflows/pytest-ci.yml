@@ -1,0 +1,42 @@
+name: Pytest CI with Allure Report
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12.3'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run tests with Pytest
+      env:
+        PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+        NAME: ${{ secrets.NAME }}
+        USERNAME_TEST: ${{ secrets.USERNAME_TEST }}
+        TOTAL: ${{ secrets.TOTAL }}
+      run: |
+        pytest
+      continue-on-error: true
+
+    - name: Upload Allure Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure-results
+        path: allure-results
+        retention-days: 5
