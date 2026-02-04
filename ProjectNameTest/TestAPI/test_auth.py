@@ -14,7 +14,7 @@ def test_login_happy_flow(env_data):
 def test_trying_to_login_with_not_exist_email(env_data):
     logging.info("Logging Info login with not exist email")
     time.sleep(1)
-    assert env_data.name == "TEST_NAME"
+    assert env_data.name == "TEST_NAMEE"
 
 @allure.epic("Authorization")
 @allure.feature("Login")

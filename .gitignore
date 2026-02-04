@@ -4,3 +4,4 @@ NotPushingFile.txt
 .idea/
 allure-results/
 main.py
+__pycache__
